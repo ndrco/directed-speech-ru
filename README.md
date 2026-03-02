@@ -1,3 +1,5 @@
+![CI](https://github.com/ТВОЙ_НИК/directed-speech-ru/actions/workflows/ci.yml/badge.svg)
+
 # Directed Speech Classifier (RU)
 
 Бинарный классификатор, определяющий, **адресована ли реплика ассистенту** (“directed speech”) по тексту (обычно это вывод ASR).
