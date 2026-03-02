@@ -27,7 +27,7 @@ Why this helps:
 - improves robustness of always-on or attention-mode assistant scenarios
 
 Pipeline in this repo:
-1. synthetic dataset generation with ASR-like noise
+1. synthetic dataset generation with ASR-like noise (this step can be skipped if using the already generated CSVs in `data/`)
 2. fine-tuning `ruElectra-small`
 3. inference + evaluation + top FP/FN error analysis
 
