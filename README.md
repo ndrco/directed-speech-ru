@@ -1,4 +1,4 @@
-![CI](https://github.com/YOUR_NICK/directed-speech-ru/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/ndrco/directed-speech-ru/actions/workflows/ci.yml/badge.svg)](https://github.com/ndrco/directed-speech-ru/actions/workflows/ci.yml)
 
 # Directed Speech Classifier (RU)
 
