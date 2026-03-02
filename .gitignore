@@ -19,6 +19,7 @@ venv/
 
 # Models / checkpoints
 directed-ruElectra-small/*
+!directed-ruElectra-small/.gitkeep
 **/checkpoint-*/
 **/runs/
 *.bin
