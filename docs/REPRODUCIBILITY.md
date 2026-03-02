@@ -1,11 +1,11 @@
 # Reproducibility
 
-Цель: воспроизводимо получить модель directed-speech classifier (RU) и метрики.
+Goal: reproducibly train the directed-speech classifier (RU) and obtain comparable metrics.
 
 ## Environment
 - Python: 3.10+
-- Зависимости: см. `requirements.txt`
-- Для GPU: CUDA-совместимый torch (по вашей системе)
+- Dependencies: see `requirements.txt`
+- For GPU: CUDA-compatible `torch` for your system
 
 ## Steps
 
@@ -13,7 +13,7 @@
 ```bash
 python scripts/generate_data_v3.py
 ```
-Выход: `data_v3.csv` и сплиты `data_v3_*`.
+Output: `data_v3.csv` and split files `data_v3_*`.
 
 ### 2) Train
 ```bash
@@ -29,5 +29,4 @@ python scripts/infer_directed_v2.py --model ./directed-ruElectra-small \
 ```
 
 ## Notes
-- Для сравнения метрик используйте одинаковый seed и одинаковые версии библиотек.
-
+- For metric comparison, use the same seed and the same library versions.

@@ -6,7 +6,7 @@ Dataset generator v3 for "directed speech" (addressed to assistant) WITHOUT assi
 
 New in v3:
 - Post-noise validator for POSITIVE samples:
-  prevents degenerate positives like "эм…" / "ну…" that contain only fillers or are too content-poor
+  prevents degenerate positives like filler-only fragments ("em..." / "uh...") that are too content-poor
   after ASR corruption. If a generated positive fails validation, it is discarded and regenerated.
 
 Outputs:
@@ -31,7 +31,7 @@ POS_RATIO = 0.5
 OUT_DIR = pathlib.Path(".")  # current dir
 
 # Exclude assistant name tokens entirely
-BANNED = {"кисса", "киса", "ассистент", "помощник", "assistant", "kissa"}
+BANNED = {"ассистент", "помощник", "assistant"}
 
 people = ["Саша", "Маша", "Игорь", "Оля", "Дима", "Катя", "Лена", "Петя", "Ваня", "Надя", "Сергей", "Аня"]
 roles  = ["мам", "мама", "пап", "папа", "брат", "сестра", "дед", "бабушка", "коллега", "шеф"]
@@ -171,7 +171,7 @@ def validate_pos_post_noise(text: str) -> bool:
     - must not be only fillers
     - must contain at least one "anchor" token:
       * imperative-ish prefix OR question prefix OR modal prefix OR control prefix
-    - allows 1-token positives only if token matches a control prefix (e.g., 'стоп', 'отмна')
+    - allows 1-token positives only if token matches a control prefix (for example, short "stop/cancel" forms)
     """
     toks = _tokenize_for_validation(text)
     if not toks:
@@ -253,7 +253,7 @@ def gen_pos(base: str) -> str:
 
     s_noisy = asr_noise(s)
 
-    # ✅ Post-noise validator for positives (discard degenerate cases)
+    # Post-noise validator for positives (discard degenerate cases)
     if not validate_pos_post_noise(s_noisy):
         return ""
 

@@ -1,34 +1,35 @@
-# Model Card — Directed Speech Classifier (RU)
+# Model Card - Directed Speech Classifier (RU)
 
 ## What
-Бинарный классификатор “directed speech” по тексту (обычно это выход ASR):
-- 1: адресовано ассистенту
-- 0: не адресовано ассистенту
+Binary "directed speech" classifier over text (typically ASR output):
+- 1: addressed to the assistant
+- 0: not addressed to the assistant
 
-Модель: fine-tuned `ruElectra-small` (Sequence Classification, 2 labels).
+Model: fine-tuned `ruElectra-small` (Sequence Classification, 2 labels).
 
 ## Intended use
-Используется как “attention gate” перед NLU/LLM:
-ASR → directed-speech → (если 1) NLU/LLM; иначе игнор.
+Used as an attention gate before NLU/LLM:
+ASR -> directed-speech -> (if 1) NLU/LLM; otherwise ignore.
 
 ## Training data
-Синтетический датасет из `scripts/generate_data_v3.py` с ASR-подобным шумом и split по `group_id`.
+Synthetic dataset from `scripts/generate_data_v3.py` with ASR-like noise and split by `group_id`.
 
 ## Metrics
-См. `test_report.json` (если приложен) и `docs/REPRODUCIBILITY.md`.
+See `test_report.json` (if attached) and `docs/REPRODUCIBILITY.md`.
 
 ## Decision threshold
-В инференсе можно использовать:
-- `p(directed) >= threshold` (по умолчанию `threshold=0.7`)
-- или `argmax` по логитам (см. `--argmax` в inference)
+At inference you can use:
+- `p(directed) >= threshold` (default `threshold=0.7`)
+- or logits `argmax` (see `--argmax` in inference)
 
-Порог выбирается под продукт (трейд-офф FP/FN).
+Threshold should be selected for the target product based on FP/FN trade-off.
 
 ## Limitations & risks
-- На реальной речи/ASR возможны смещения (акценты, домены, сленг).
-- Ошибки FP (ложные срабатывания) могут “будить” ассистента.
-- Ошибки FN (пропуски) могут “глушить” ассистента.
-Рекомендуется тюнить threshold на реальных данных и мониторить ошибки.
+- On real speech/ASR, distribution shifts are possible (accents, domains, slang).
+- FP errors (false triggers) may wake the assistant unnecessarily.
+- FN errors (misses) may suppress valid assistant requests.
+Threshold tuning on real data and continuous error monitoring are recommended.
 
 ## License
-Код в репозитории — по `LICENSE`. Предобученная базовая модель и её лицензия/условия — отдельно (Hugging Face).
+Repository code is licensed under `LICENSE`.
+The base pretrained model has its own license/terms on Hugging Face.
